@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" novalidate>
+
+      <div class="form-group">
+        <label class="col-md-4">Subject </label>
+        <input type="text" class="form-control" formControlName="subject" #subject />
+      </div>
+      <div *ngIf="angForm.controls['subject'].invalid && (angForm.controls['subject'].dirty || angForm.controls['subject'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['subject'].errors.required">
+          Subject is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">To </label>
+        <input type="text" placeholder="leave blank to send notifications to all"class="form-control" formControlName="to" #to />
+      </div>
+      <div *ngIf="angForm.controls['to'].invalid && (angForm.controls['to'].dirty || angForm.controls['to'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['to'].errors.required">
+          To is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Body </label>
+        <app-ngx-editor height="500px" [placeholder]="'Compose Email Body here...'" [spellcheck]="true" formControlName="body" #body></app-ngx-editor>
+      </div>
+      <div *ngIf="angForm.controls['body'].invalid && (angForm.controls['body'].dirty || angForm.controls['body'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['body'].errors.required">
+          Body is required.
+        </div>
+      </div>
+      <div class="form-group text-right">
+        <button routerLink="" class="btn btn-default">Cancel</button>  &nbsp;&nbsp;&nbsp;
+        <button (click)="sendGeneralNotifications()"
+        [disabled]="angForm.pristine || angForm.invalid" 
+        class="btn btn-primary">Send Notification</button>
+      </div>
+    </form>
+  </div>
+</div>

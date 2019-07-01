@@ -1,0 +1,37 @@
+<input [(ngModel)]="searchText" placeholder=" Search within environments..">
+<i id="filtersubmit" class="fa fa-search"></i>
+<p></p>
+
+<table class="table table-hover" matSort (matSortChange)="sortData($event)" matSortActive="env" matSortDirection="asc"
+  matSortDisableClear>
+  <tr>
+    <th mat-sort-header="env">Environment</th>
+    <th mat-sort-header="app">Application</th>
+    <th mat-sort-header="current_version">Current Version</th>
+    <th mat-sort-header="status">Status</th>
+    <th mat-sort-header="install_date">Install Date</th>
+    <th mat-sort-header="comments">Comments</th>
+    <th colspan="3">Actions
+      <a routerLink="environment/create" class="fa fa-plus" style="font-size:18px;color:blueviolet;text-indent: 1em">
+      </a>
+      <a routerLink="sendnotifications" class="fa fa-paper-plane"
+        style="font-size:18px;color:blueviolet;text-indent: 1em"> </a>
+    </th>
+  </tr>
+
+  <tbody>
+    <tr
+      *ngFor="let environment of environments |  grdFilter: {env: searchText, app:searchText, current_version: searchText, status: searchText} | paginate: { itemsPerPage: 12, currentPage: p }  ">
+      <td>{{ environment.env }}</td>
+      <td>{{ environment.app }}</td>
+      <td>{{ environment.current_version }}</td>
+      <td>{{ environment.status }}</td>
+      <td>{{ environment.install_date }}</td>
+      <td>{{ environment.comments }}</td>
+      <td><a [routerLink]="['environment/edit', environment._id]" class="fa fa fa-edit"> </a></td>
+      <td><a (click)="deleteEnvironment(environment._id)" class="fa fa-trash"></a></td>
+      <td><a (click)="addSubscriber(environment._id,environment.env, environment.app, '')" class="fa fa-bell"></a></td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

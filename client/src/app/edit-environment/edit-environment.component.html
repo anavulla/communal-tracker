@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="angForm" novalidate>
+        <div class="form-group">
+          <label class="col-md-4">Environment</label>
+          <input type="text" class="form-control" formControlName="env" #env [(ngModel)] = "environment.env" />
+        </div>
+        <div *ngIf="angForm.controls['env'].invalid && (angForm.controls['env'].dirty || angForm.controls['env'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['env'].errors.required">
+            Environment is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Application</label>
+          <input type="text" class="form-control" formControlName="app" #app [(ngModel)] = "environment.app" />
+        </div>
+        <div *ngIf="angForm.controls['app'].invalid && (angForm.controls['app'].dirty || angForm.controls['app'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['app'].errors.required">
+            Application is required.
+          </div>
+         </div> 
+        <div class="form-group">
+            <label class="col-md-4">Current Version</label>
+            <input type="text" class="form-control" formControlName="current_version" #current_version [(ngModel)] = "environment.current_version" />
+        </div>
+        <div *ngIf="angForm.controls['current_version'].invalid && (angForm.controls['current_version'].dirty || angForm.controls['current_version'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['current_version'].errors.required">
+            Current Version is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Status </label>
+          <input type="text" class="form-control" formControlName="status" #status [(ngModel)] = "environment.status" />
+        </div>
+        <div *ngIf="angForm.controls['status'].invalid && (angForm.controls['status'].dirty || angForm.controls['status'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['status'].errors.required">
+            Status is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Install Date </label>
+          <input class="form-control" formControlName="install_date"  [owlDateTimeTrigger]="install_date" [owlDateTime]="install_date" [(ngModel)] = "environment.install_date">
+          <owl-date-time [pickerMode]="'dialog'" #install_date></owl-date-time>                      
+        </div>
+        <div *ngIf="angForm.controls['install_date'].invalid && (angForm.controls['install_date'].dirty || angForm.controls['install_date'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['install_date'].errors.required">
+            Install Date is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Comments </label>
+          <input type="text" class="form-control" formControlName="comments" #comments [(ngModel)] = "environment.comments" />
+        </div>
+        <div *ngIf="angForm.controls['comments'].invalid && (angForm.controls['comments'].dirty || angForm.controls['comments'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['comments'].errors.required">
+            Comments is required.
+          </div>
+        </div>
+        <div class="form-group text-right">
+          <button routerLink="" class="btn btn-default">Cancel</button>  &nbsp;&nbsp;&nbsp;
+          <button (click)="updateEnvironment(env.value, app.value, current_version.value, status.value, install_date.value, comments.value)"
+          [disabled]="angForm.invalid" 
+          class="btn btn-primary">Update Environment</button>
+        </div>
+      </form>
+    </div>
+  </div>

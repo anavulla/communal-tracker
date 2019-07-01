@@ -1,0 +1,6 @@
+{
+	"/**": {
+		"target": "http://<HOST>:<PORT>",
+		"secure": "false"
+	}
+}

@@ -1,0 +1,109 @@
+######################################################################################
+# create PV and PVC first.
+# use the PVC to externalize client-config.json and server-config.js
+######################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+  labels:
+    app: communal-tracker
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    name: server-http
+    nodePort: 31999
+  selector:
+    app: communal-tracker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client
+  labels:
+    app: communal-tracker
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: client-http
+  - port: 8443
+    targetPort: 8443
+    protocol: TCP
+    name: client-https
+  selector:
+    app: communal-tracker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: communal-tracker
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: communal-tracker
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: communal-tracker
+    spec:
+      containers:
+      - name: server
+        image: {{SERVER_IMAGE}}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 443
+          protocol: TCP
+        - containerPort: 3000
+          protocol: TCP
+        volumeMounts:
+          - name: communal-tracker-volume
+            mountPath: /server/configuration
+      - name: client
+        image: {{CLIENT_IMAGE}}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8443
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - name: communal-tracker-volume
+            mountPath: /usr/share/nginx/html/client/assets/configuration
+      volumes:
+      - name: communal-tracker-volume
+        persistentVolumeClaim:
+         claimName: communal-tracker-persistent-volume-claim
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: communal-tracker-ssl-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.org/mergeable-ingress-type: "minion"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+spec:
+  tls:
+  - hosts:
+    - {{HOST}}
+    secretName: {{SECRET}}
+  rules:
+  - host: {{HOST}}
+    http:
+      paths:
+      - backend:
+          serviceName: client
+          servicePort: 8080
+        path: /client/

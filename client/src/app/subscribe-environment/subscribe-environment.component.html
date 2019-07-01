@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Subscribe to "{{env}}:{{app}}"</h2>
+
+
+<mat-dialog-content [formGroup]="form">
+
+    <mat-form-field>
+      <input matInput
+              placeholder="Email"
+             formControlName="email">
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+    <button class="mat-raised-button"
+            (click)="close()">
+        Close
+    </button>
+
+    <button class="mat-raised-button mat-primary"
+            (click)="save()">
+        Subscribe
+    </button>
+
+</mat-dialog-actions>

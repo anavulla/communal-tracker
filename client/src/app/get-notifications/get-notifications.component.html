@@ -1,0 +1,27 @@
+<input [(ngModel)]="searchText" placeholder=" Search within emailNotifications..">
+<i id="filtersubmit" class="fa fa-search"></i>
+<p></p>
+
+<table class="table table-hover" matSort (matSortChange)="sortData($event)" matSortActive="createdAt"
+  matSortDirection="asc" matSortDisableClear>
+  <tr>
+    <th mat-sort-header="createdAt">Created At</th>
+    <th mat-sort-header="subject">Subject</th>
+    <th mat-sort-header="to">TO</th>
+    <th colspan="2">Actions
+      <a routerLink="../sendnotifications" class="fa fa-paper-plane"
+        style="font-size:18px;color:blueviolet;text-indent: 1em"> </a>
+    </th>
+  </tr>
+
+  <tbody>
+    <tr
+      *ngFor="let emailNotification of emailNotifications |  grdFilter: {createdAt: searchText, subject:searchText, to: searchText} | paginate: { itemsPerPage: 12, currentPage: p }  ">
+      <td>{{ emailNotification.createdAt }}</td>
+      <td>{{ emailNotification.subject }}</td>
+      <td>{{ emailNotification.to }}</td>
+      <td><a (click)="viewNotification(emailNotification)" class="fa fa-eye"></a></td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

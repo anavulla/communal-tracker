@@ -16,9 +16,6 @@ let EmailNotification = new Schema({
   },
   html: {
     type: String
-  },
-  body: {
-    type: String
   }
 },{
     collection: 'emailNotification'

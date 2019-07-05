@@ -15,7 +15,14 @@ spec:
     targetPort: 3000
     protocol: TCP
     name: server-http
-    nodePort: 31999
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: client-http
+  - port: 8443
+    targetPort: 8443
+    protocol: TCP
+    name: client-https
   selector:
     app: communal-tracker
 ---
@@ -103,6 +110,10 @@ spec:
   - host: {{HOST}}
     http:
       paths:
+      - backend:
+          serviceName: server
+          servicePort: 3000
+        path: /server/
       - backend:
           serviceName: client
           servicePort: 8080

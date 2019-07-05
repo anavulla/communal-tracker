@@ -49,6 +49,7 @@ export class GetEnvironmentsComponent implements OnInit {
 
         // convert ISO timestamp to readable format
         this.environments.forEach(function (value) {
+          if(value.install_date)
           value.install_date=moment(new Date(value.install_date)).format('MM/DD/YYYY, hh:mm A')
         });
         

@@ -17,11 +17,12 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 );
 
 const app = express();
+const rootContext = config.rootContext || '/server';
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/environment', environmentRoute);
-app.use('/emailNotification', emailNotificationRoute);
-app.use('/subscriber', subscriberRoute);
+app.use(rootContext+'/environment', environmentRoute);
+app.use(rootContext+'/emailNotification', emailNotificationRoute);
+app.use(rootContext+'/subscriber', subscriberRoute);
 
 
 const port = process.env.PORT || 3000;

@@ -3,6 +3,5 @@ export default class EmailNotification {
     to: string;
     subject: string;
     html: string;
-    body: string;
     createdAt: string;
   }

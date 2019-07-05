@@ -39,15 +39,12 @@ emailNotificationRoutes.route('/send-email-and-add').post(function (req, res) {
                     console.log(email_distribution);
                     console.log("========General Notifications=============");
 
-                    var bodyArray = req.body.body.split("\n")
-                    var bodyHtml = bodyArray.join('<br />');
 
                     mailOptions = {
                         from: from_email_address,
                         to: email_distribution,
                         subject: req.body.subject,
-                        html: bodyHtml,
-                        body: req.body.body
+                        html: req.body.body
                     };
                     //sendmail invocation
                     transporter.sendMail(mailOptions, (err, info) => {
@@ -65,6 +62,11 @@ emailNotificationRoutes.route('/send-email-and-add').post(function (req, res) {
                                     throw err;
                                 }
                                 console.log('saved emailnotification');
+
+                                res.json({
+                                    'status': '200',
+                                    'emailNotification': 'Notification has been sent and saved in DB!!'
+                                });
                             });
 
                             console.log('Message %s sent: %s', info.messageId, info.response);

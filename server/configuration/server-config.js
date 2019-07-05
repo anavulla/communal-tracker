@@ -1,5 +1,5 @@
 module.exports = {
-		
+		rootContext: "/server",
     // MONGO DB
     DB: "mongodb://user:password@domain/communal_tracker",
     

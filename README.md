@@ -16,7 +16,7 @@ _Note_: You can use `Dockerfile` to build docker images. It uses *docker multi-s
 ###### Run the following from MongoDB shell:
 ```
 db.notificationReceivers.insert({
-    email_list: 'user1@domain.com,user2@domain.com'
+    email_list: '<comma_seperated_distribution>'
 });
 ```
 

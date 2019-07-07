@@ -60,6 +60,7 @@ export class GetNotificationsComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.maxWidth = "1500px";
 
     dialogConfig.data = {
       emailNotification: emailNotification

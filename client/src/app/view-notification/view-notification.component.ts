@@ -10,12 +10,14 @@ import EmailNotification from '../model/EmailNotification';
 })
 export class ViewNotificationComponent implements OnInit {
 
-  emailBody: String;
+  to: String;
   emailHtml: String;
+
 
 
   constructor(private dialogRef: MatDialogRef<ViewNotificationComponent>,
     @Inject(MAT_DIALOG_DATA) private emailNotification: EmailNotification, private router: Router) {
+
 
   }
 
@@ -24,7 +26,7 @@ export class ViewNotificationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.emailBody = Object["values"](this.emailNotification)[0].body;
+    this.to = Object["values"](this.emailNotification)[0].to;
     this.emailHtml = Object["values"](this.emailNotification)[0].html;
   }
 

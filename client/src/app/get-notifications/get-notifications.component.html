@@ -7,7 +7,6 @@
   <tr>
     <th mat-sort-header="createdAt">Created At</th>
     <th mat-sort-header="subject">Subject</th>
-    <th mat-sort-header="to">TO</th>
     <th colspan="2">Actions
       <a routerLink="../sendnotifications" class="fa fa-paper-plane"
         style="font-size:18px;color:blueviolet;text-indent: 1em"> </a>
@@ -19,7 +18,6 @@
       *ngFor="let emailNotification of emailNotifications |  grdFilter: {createdAt: searchText, subject:searchText, to: searchText} | paginate: { itemsPerPage: 12, currentPage: p }  ">
       <td>{{ emailNotification.createdAt }}</td>
       <td>{{ emailNotification.subject }}</td>
-      <td>{{ emailNotification.to }}</td>
       <td><a (click)="viewNotification(emailNotification)" class="fa fa-eye"></a></td>
     </tr>
   </tbody>

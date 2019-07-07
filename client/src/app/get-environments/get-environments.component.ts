@@ -72,6 +72,8 @@ export class GetEnvironmentsComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.width = "600px";
+    dialogConfig.maxWidth = "1500px";
 
     dialogConfig.data = {
       env_id: env_id,

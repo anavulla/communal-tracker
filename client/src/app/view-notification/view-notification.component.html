@@ -1,5 +1,9 @@
 <mat-dialog-content>
   <div [innerHTML]="emailHtml"></div>
+  <div class="zigzag"></div>
+  <strong>This Notification has been sent to the following:</strong>
+  <div style="text-align:justify; word-break:break-all;" [innerHTML]="to"></div>
+  <div class="zigzag"></div>
 </mat-dialog-content>
 
 <mat-dialog-actions>

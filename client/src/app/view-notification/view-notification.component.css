@@ -1,0 +1,15 @@
+.mat-dialog-actions {
+    justify-content: flex-end;
+}
+.zigzag {
+    height:10px;
+    width:1450px;
+    background:
+        linear-gradient(-135deg, #FF6347 5px, transparent 0) 0 5px,
+        linear-gradient(135deg, #FF6347 5px, #fff 0) 0 5px;
+    background-color: #FF6347;
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-size: 10px 10px;
+ 
+}

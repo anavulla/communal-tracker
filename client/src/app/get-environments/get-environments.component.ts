@@ -35,7 +35,7 @@ export class GetEnvironmentsComponent implements OnInit {
         case 'app': return compare(a.app, b.app, isAsc);
         case 'current_version': return compare(a.current_version, b.current_version, isAsc);
         case 'status': return compare(a.status, b.status, isAsc);
-        case 'install_date': return compare(a.install_date, b.install_date, isAsc);
+        case 'install_date': return compare(new Date(a.install_date), new Date(b.install_date), isAsc);
         case 'comments': return compare(a.comments, b.comments, isAsc);
         default: return 0;
       }
